@@ -15,16 +15,6 @@
 		A12C9588178D574200629298 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12C9587178D574200629298 /* UIKit.framework */; };
 		A12C958A178D574200629298 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12C9589178D574200629298 /* Foundation.framework */; };
 		A12C958C178D574200629298 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A12C958B178D574200629298 /* CoreGraphics.framework */; };
-		A12C9590178D574200629298 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C958F178D574200629298 /* CloseNormal.png */; };
-		A12C9592178D574200629298 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C9591178D574200629298 /* CloseSelected.png */; };
-		A12C9594178D574200629298 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C9593178D574200629298 /* Default.png */; };
-		A12C9596178D574200629298 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C9595178D574200629298 /* HelloWorld.png */; };
-		A12C9598178D574200629298 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C9597178D574200629298 /* Icon-72.png */; };
-		A12C959A178D574200629298 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C9599178D574200629298 /* Icon-Small-50.png */; };
-		A12C959C178D574200629298 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C959B178D574200629298 /* Icon-Small.png */; };
-		A12C959E178D574200629298 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C959D178D574200629298 /* Icon-Small@2x.png */; };
-		A12C95A0178D574200629298 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C959F178D574200629298 /* Icon.png */; };
-		A12C95A2178D574200629298 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A12C95A1178D574200629298 /* Icon@2x.png */; };
 		A12C95A4178D574200629298 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A12C95A3178D574200629298 /* iTunesArtwork */; };
 		A12C95A9178D574200629298 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12C95A8178D574200629298 /* AppController.mm */; };
 		A12C95AC178D574200629298 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12C95AB178D574200629298 /* RootViewController.mm */; };
@@ -206,7 +196,14 @@
 		A12C9820178D574600629298 /* CCTableViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C981F178D574600629298 /* CCTableViewCell.cpp */; };
 		A12C9824178D574600629298 /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C9823178D574600629298 /* HttpClient.cpp */; };
 		A12C982D178D574600629298 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C982C178D574600629298 /* AppDelegate.cpp */; };
-		A12C9830178D574600629298 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C982F178D574600629298 /* HelloWorldScene.cpp */; };
+		A12C983F178D596500629298 /* BattleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C983D178D596500629298 /* BattleScene.cpp */; };
+		A12C9842178D5F6700629298 /* GridLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C9840178D5F6700629298 /* GridLayer.cpp */; };
+		A12C9868178D792D00629298 /* ActionSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C9866178D792D00629298 /* ActionSprite.cpp */; };
+		A12C986F178EC9E100629298 /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C986D178EC9E000629298 /* GameLayer.cpp */; };
+		A12C9877178FA60000629298 /* Actions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C9875178FA5FF00629298 /* Actions.cpp */; };
+		A12C9887178FF66500629298 /* MSG.plist in Resources */ = {isa = PBXBuildFile; fileRef = A12C9885178FF66500629298 /* MSG.plist */; };
+		A12C9888178FF66500629298 /* MSG.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = A12C9886178FF66500629298 /* MSG.pvr.ccz */; };
+		A12C988C17902EA800629298 /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C988A17902EA800629298 /* Hero.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -219,16 +216,6 @@
 		A12C9587178D574200629298 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A12C9589178D574200629298 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A12C958B178D574200629298 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		A12C958F178D574200629298 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseNormal.png; path = Resources/CloseNormal.png; sourceTree = "<group>"; };
-		A12C9591178D574200629298 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseSelected.png; path = Resources/CloseSelected.png; sourceTree = "<group>"; };
-		A12C9593178D574200629298 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
-		A12C9595178D574200629298 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HelloWorld.png; path = Resources/HelloWorld.png; sourceTree = "<group>"; };
-		A12C9597178D574200629298 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
-		A12C9599178D574200629298 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
-		A12C959B178D574200629298 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
-		A12C959D178D574200629298 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
-		A12C959F178D574200629298 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
-		A12C95A1178D574200629298 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
 		A12C95A3178D574200629298 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
 		A12C95A5178D574200629298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		A12C95A7178D574200629298 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = "<group>"; };
@@ -648,8 +635,21 @@
 		A12C9829178D574600629298 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		A12C982B178D574600629298 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		A12C982C178D574600629298 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
-		A12C982E178D574600629298 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
-		A12C982F178D574600629298 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		A12C983D178D596500629298 /* BattleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BattleScene.cpp; sourceTree = "<group>"; };
+		A12C983E178D596500629298 /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleScene.h; sourceTree = "<group>"; };
+		A12C9840178D5F6700629298 /* GridLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridLayer.cpp; sourceTree = "<group>"; };
+		A12C9841178D5F6700629298 /* GridLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLayer.h; sourceTree = "<group>"; };
+		A12C9844178D6A5500629298 /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Define.h; path = ../Define.h; sourceTree = "<group>"; };
+		A12C9866178D792D00629298 /* ActionSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionSprite.cpp; sourceTree = "<group>"; };
+		A12C9867178D792D00629298 /* ActionSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSprite.h; sourceTree = "<group>"; };
+		A12C986D178EC9E000629298 /* GameLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameLayer.cpp; sourceTree = "<group>"; };
+		A12C986E178EC9E100629298 /* GameLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
+		A12C9875178FA5FF00629298 /* Actions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Actions.cpp; sourceTree = "<group>"; };
+		A12C9876178FA5FF00629298 /* Actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actions.h; sourceTree = "<group>"; };
+		A12C9885178FF66500629298 /* MSG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MSG.plist; sourceTree = "<group>"; };
+		A12C9886178FF66500629298 /* MSG.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = MSG.pvr.ccz; sourceTree = "<group>"; };
+		A12C988A17902EA800629298 /* Hero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hero.cpp; sourceTree = "<group>"; };
+		A12C988B17902EA800629298 /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -719,18 +719,11 @@
 		A12C958E178D574200629298 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A12C958F178D574200629298 /* CloseNormal.png */,
-				A12C9591178D574200629298 /* CloseSelected.png */,
-				A12C9593178D574200629298 /* Default.png */,
-				A12C9595178D574200629298 /* HelloWorld.png */,
-				A12C9597178D574200629298 /* Icon-72.png */,
-				A12C9599178D574200629298 /* Icon-Small-50.png */,
-				A12C959B178D574200629298 /* Icon-Small.png */,
-				A12C959D178D574200629298 /* Icon-Small@2x.png */,
-				A12C959F178D574200629298 /* Icon.png */,
-				A12C95A1178D574200629298 /* Icon@2x.png */,
+				A12C9845178D789300629298 /* goldenWalkPics */,
 				A12C95A3178D574200629298 /* iTunesArtwork */,
 				A12C95A5178D574200629298 /* Info.plist */,
+				A12C9885178FF66500629298 /* MSG.plist */,
+				A12C9886178FF66500629298 /* MSG.pvr.ccz */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1550,12 +1543,54 @@
 		A12C982A178D574600629298 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A12C9844178D6A5500629298 /* Define.h */,
 				A12C982B178D574600629298 /* AppDelegate.h */,
 				A12C982C178D574600629298 /* AppDelegate.cpp */,
-				A12C982E178D574600629298 /* HelloWorldScene.h */,
-				A12C982F178D574600629298 /* HelloWorldScene.cpp */,
+				A12C983D178D596500629298 /* BattleScene.cpp */,
+				A12C983E178D596500629298 /* BattleScene.h */,
+				A12C9874178F9B7000629298 /* Layer */,
+				A12C988917902E7A00629298 /* Sprite */,
+				A12C9878178FA60500629298 /* Actions */,
+				A12C9875178FA5FF00629298 /* Actions.cpp */,
+				A12C9876178FA5FF00629298 /* Actions.h */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		A12C9845178D789300629298 /* goldenWalkPics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = goldenWalkPics;
+			sourceTree = "<group>";
+		};
+		A12C9874178F9B7000629298 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				A12C986E178EC9E100629298 /* GameLayer.h */,
+				A12C986D178EC9E000629298 /* GameLayer.cpp */,
+				A12C9841178D5F6700629298 /* GridLayer.h */,
+				A12C9840178D5F6700629298 /* GridLayer.cpp */,
+			);
+			name = Layer;
+			sourceTree = "<group>";
+		};
+		A12C9878178FA60500629298 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
+		A12C988917902E7A00629298 /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				A12C9867178D792D00629298 /* ActionSprite.h */,
+				A12C9866178D792D00629298 /* ActionSprite.cpp */,
+				A12C988A17902EA800629298 /* Hero.cpp */,
+				A12C988B17902EA800629298 /* Hero.h */,
+			);
+			name = Sprite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1608,18 +1643,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A12C9590178D574200629298 /* CloseNormal.png in Resources */,
-				A12C9592178D574200629298 /* CloseSelected.png in Resources */,
-				A12C9594178D574200629298 /* Default.png in Resources */,
-				A12C9596178D574200629298 /* HelloWorld.png in Resources */,
-				A12C9598178D574200629298 /* Icon-72.png in Resources */,
-				A12C959A178D574200629298 /* Icon-Small-50.png in Resources */,
-				A12C959C178D574200629298 /* Icon-Small.png in Resources */,
-				A12C959E178D574200629298 /* Icon-Small@2x.png in Resources */,
-				A12C95A0178D574200629298 /* Icon.png in Resources */,
-				A12C95A2178D574200629298 /* Icon@2x.png in Resources */,
 				A12C95A4178D574200629298 /* iTunesArtwork in Resources */,
 				A12C9636178D574300629298 /* ChangeLog in Resources */,
+				A12C9887178FF66500629298 /* MSG.plist in Resources */,
+				A12C9888178FF66500629298 /* MSG.pvr.ccz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1808,7 +1835,12 @@
 				A12C9820178D574600629298 /* CCTableViewCell.cpp in Sources */,
 				A12C9824178D574600629298 /* HttpClient.cpp in Sources */,
 				A12C982D178D574600629298 /* AppDelegate.cpp in Sources */,
-				A12C9830178D574600629298 /* HelloWorldScene.cpp in Sources */,
+				A12C983F178D596500629298 /* BattleScene.cpp in Sources */,
+				A12C9842178D5F6700629298 /* GridLayer.cpp in Sources */,
+				A12C9868178D792D00629298 /* ActionSprite.cpp in Sources */,
+				A12C986F178EC9E100629298 /* GameLayer.cpp in Sources */,
+				A12C9877178FA60000629298 /* Actions.cpp in Sources */,
+				A12C988C17902EA800629298 /* Hero.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1938,6 +1970,7 @@
 				A12C9835178D574600629298 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
