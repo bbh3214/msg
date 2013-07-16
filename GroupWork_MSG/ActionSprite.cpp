@@ -36,7 +36,7 @@ bool ActionSprite:: init()
        //设定缩放以求适应网格
         this->setScale(SPRITE_SCALE);
         this->setRange(1);
-        this->setMovement(7);
+        this->setMovement(6);
         this->setHp(10);
         this->setDamage(2);
         _factory= Actions::create();
@@ -74,10 +74,11 @@ void ActionSprite:: putSpriteIntoBattleField(CCPoint position)
 }
 
 //精灵行动动作
-void ActionSprite::goToTarget(ActionSprite * target)
+CCFiniteTimeAction* ActionSprite::goToTarget(ActionSprite * target)
 {
 //为什么报错
 //    this->runAction(_walkAction);
+    CCFiniteTimeAction * movement ;
     CCPoint target_point =  target->getPosition();
     CCPoint self_point = this->getPosition();
     CCLog("target_point.x=%f  target_point.y  ==%f",target_point.x,target_point.y);
@@ -96,9 +97,6 @@ void ActionSprite::goToTarget(ActionSprite * target)
         //如果在攻击范围内,直接攻击
         if (this->getRange()>total_distance) {
             
-            ///////////////////
-            ///////攻击还没写呢//
-            ///////////////////
             this->attack(target);
         }
         //否则移动后攻击
@@ -107,33 +105,34 @@ void ActionSprite::goToTarget(ActionSprite * target)
             
             int move_step =  total_distance-this->getRange();
             //先走横线再走竖线
-            if (move_step>distance_x) {
+            if (move_step>abs(distance_x)) {
                 CCLog("走折线");
                 //水平方向行走动作
-                CCMoveBy * movement_row = CCMoveBy::create(ANIMATION_DURATION*distance_x, ccp(GRID_WIDTH*distance_x,0));
+                CCMoveBy * movement_row = CCMoveBy::create(ANIMATION_DURATION*abs(distance_x), ccp(GRID_WIDTH*distance_x,0));
                 //垂直方向行走动作
-                CCMoveBy * movement_colunm = CCMoveBy::create(ANIMATION_DURATION*(distance_y-1), ccp(0,GRID_WIDTH*(distance_y-1)));
+                CCMoveBy * movement_colunm = CCMoveBy::create(ANIMATION_DURATION*(move_step-abs(distance_x)), ccp(0,GRID_WIDTH*(distance_y)/abs(distance_y)*(move_step-abs(distance_x))));
                 //动画执行后攻击
                 CCCallFuncO * attackCall = CCCallFuncO::create(this, callfuncO_selector(ActionSprite:: attack), target);
                 //组合动作
-                CCFiniteTimeAction * movement = CCSequence::create(movement_row,movement_colunm,attackCall,NULL);
-                CCFiniteTimeAction * move11= CCSequence::create(movement, movement,NULL);
-                this->runAction(move11);
-//                this->schedule(schedule_selector(attack(target)), ANIMATION_DURATION*(distance_x+distance_y-1));
-//                this->schedule(schedule_selector(idle()),5 );
+                movement = CCSequence::create(movement_row,movement_colunm,attackCall,NULL);
 
             }
             //走水平方向就够嘞
             else{
                 CCLog("走直线");
-                CCMoveBy * movement_row = CCMoveBy::create(ANIMATION_DURATION*move_step, ccp(GRID_WIDTH*move_step,0));
+                CCMoveBy * movement_row;
+                if (distance_x!=0) {
                 
+                movement_row = CCMoveBy::create(ANIMATION_DURATION*move_step, ccp(GRID_WIDTH*move_step*distance_x/abs(distance_x),0));
+                }
+                else{
+                movement_row = CCMoveBy::create(ANIMATION_DURATION*move_step, ccp(GRID_WIDTH*move_step,0));
+                }
                 //动画执行后攻击
                 CCCallFuncO * attackCall = CCCallFuncO::create(this, callfuncO_selector(ActionSprite:: attack), target);
                 //组合动作
-                CCFiniteTimeAction * movement = CCSequence::create(movement_row,attackCall,NULL);
-                CCFiniteTimeAction * move11= CCSequence::create(movement, movement,NULL);
-                this->runAction(move11);
+                movement = CCSequence::create(movement_row,attackCall,NULL);
+           
                 
             }
         }
@@ -142,13 +141,34 @@ void ActionSprite::goToTarget(ActionSprite * target)
     else
     {
         CCLog("打不到");
-        CCMoveBy * movement_row = CCMoveBy::create(ANIMATION_DURATION*this->getMovement(), ccp(GRID_WIDTH*this->getMovement(),0));
-        this->runAction(movement_row);
-    
+        
+        
+        //计算所需移动步数
+        
+        int move_step = this->getMovement();
+        //先走横线再走竖线
+        if (move_step>abs(distance_x) ) {
+            CCLog("走折线");
+            //水平方向行走动作
+            CCMoveBy * movement_row = CCMoveBy::create(ANIMATION_DURATION*abs(distance_x), ccp(GRID_WIDTH*distance_x,0));
+            //垂直方向行走动作
+            CCMoveBy * movement_colunm = CCMoveBy::create(ANIMATION_DURATION*(move_step-abs(distance_x)), ccp(0,GRID_WIDTH*(move_step-distance_x)));
+            //组合动作
+            movement = CCSequence::create(movement_row,movement_colunm,NULL);
+       
+            
+        }
+        //走水平方向就够嘞
+        else{
+            CCLog("走直线");
+            CCMoveBy * movement_row = CCMoveBy::create(ANIMATION_DURATION*this->getMovement(), ccp(GRID_WIDTH*this->getMovement(),0));
+            movement = CCSequence::create(movement_row,NULL);
+
+            
+        }
+            
     }
-//    CCLog("888888888");
-//    CCDelayTime *wait = CCDelayTime::actionWithDuration(11);
-//    CCLog("999999999");
+    return movement;
     
 }
 void ActionSprite:: idle()
@@ -171,7 +191,7 @@ void ActionSprite::attack(ActionSprite * target)
     target->addChild(att,2);
     att->runAction(att->getAttackAction());
     
-    att->setPosition(ccp(target->boundingBox().size.width,target->boundingBox().size.width));
+    att->setPosition(ccp(target->boundingBox().size.width/2,target->boundingBox().size.width/2));
     att->setScale(0.4);
     ////////////////
 

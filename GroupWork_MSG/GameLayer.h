@@ -26,10 +26,14 @@ public:
     CC_SYNTHESIZE_RETAIN(CCArray * , _heroes, Heroes);
     CC_SYNTHESIZE_RETAIN(CCArray * , _army, Army);
     CC_SYNTHESIZE_RETAIN(CCArray * , _enemy, Enemy);
-    CC_SYNTHESIZE_RETAIN(ActionSprite * , _heroeTest, HeroeTest);
-    
+    CC_SYNTHESIZE_RETAIN(ActionSprite * , _actionSprite, ActionSprite);
+    CC_SYNTHESIZE_RETAIN(ActionSprite * , _targetSprite, TargetSprite);
     ActionSprite* findTarget(ActionSprite* attacker);
     int getDistence(ActionSprite* self,ActionSprite* target);
+    void attack();
+    void log();
+    void test();
+
 };
 
 #endif /* defined(__GroupWork_MSG__GameLayer__) */

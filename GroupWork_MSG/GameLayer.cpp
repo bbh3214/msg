@@ -16,12 +16,13 @@ bool GameLayer:: init()
         
         CC_BREAK_IF(!CCLayer::init());
         
-//        this->scheduleUpdate();
+    
 
 
    
         bRet=true;
     } while (0);
+    this->scheduleUpdate();
 
     _heroes = CCArray::createWithCapacity(10);
     
@@ -36,31 +37,39 @@ bool GameLayer:: init()
     
     
     //加入精灵测试走动//////////////
-    for (int i=0; i<5; i++) {
-        int random= arc4random()%5;
-        
-        CCLog("________%i",random);
-        ActionSprite * temp = ActionSprite::create();
-        _actors->addChild(temp,5-i);
-        temp->putSpriteIntoBattleField(ccp(GRID_EDGE+GRID_WIDTH*(random),GRID_BOTTOM+GRID_WIDTH*(random)));
-        temp->walkWithDirection(true);
-//        _heroes->addObject(temp);
-        _enemy->addObject(temp);
-    }
     for (int i=0; i<1; i++) {
         
         ActionSprite * temp = ActionSprite::create();
         _actors->addChild(temp,5-i);
         temp->putSpriteIntoBattleField(ccp(GRID_EDGE+GRID_WIDTH*(0),GRID_BOTTOM+GRID_WIDTH*(i)));
         temp->walkWithDirection(false);
-//        _heroes->addObject(temp);
+        _heroes->addObject(temp);
         _army->addObject(temp);
     }
+    for (int i=0; i<5; i++) {
+        int random= arc4random()%5;
+        
+        CCLog("________%i",random);
+        ActionSprite * temp = ActionSprite::create();
+        _actors->addChild(temp,5-i);
+        temp->putSpriteIntoBattleField(ccp(GRID_EDGE+GRID_WIDTH*(random%3+3),GRID_BOTTOM+GRID_WIDTH*(random%2+3)));
+        temp->walkWithDirection(true);
+        _heroes->addObject(temp);
+        _enemy->addObject(temp);
+    }
+
     CCLog("+++++++++%i",_heroes->count());
-    ActionSprite * testMoveS = (ActionSprite *) _army->objectAtIndex(0);
-    ActionSprite * testTarget  =this->findTarget(testMoveS);
-   
-    testMoveS ->goToTarget(testTarget);
+
+    CCLog("_heroes->retainCount()%i",_heroes->retainCount());
+    _heroes->retain();
+    _army->retain();
+    _enemy->retain();
+    CCLog("_heroes->retainCount()%i",_heroes->retainCount());
+//    CCLog("+++++++++%i",_heroes->count());
+//    ActionSprite * testMoveS = (ActionSprite *) _army->objectAtIndex(0);
+//    ActionSprite * testTarget  =this->findTarget(testMoveS);
+//   
+//    testMoveS ->goToTarget(testTarget);
     ////////////////////////////
 
        return bRet;
@@ -80,7 +89,7 @@ ActionSprite* GameLayer::findTarget(ActionSprite* attacker)
         {
             ActionSprite * temp=(ActionSprite*)obj;
             
-            int distance= this->getDistence(attacker, target);
+            int distance= this->getDistence(attacker, temp);
             if (distance<=min) {
                 min=distance;
                 target=temp;
@@ -95,7 +104,7 @@ ActionSprite* GameLayer::findTarget(ActionSprite* attacker)
         {
             ActionSprite * temp=(ActionSprite*)obj;
             
-            int distance= this->getDistence(attacker, target);
+            int distance= this->getDistence(attacker, temp);
             if (distance<=min) {
                 min=distance;
                 target=temp;
@@ -127,13 +136,82 @@ int GameLayer::getDistence(ActionSprite* self,ActionSprite* target)
 GameLayer:: GameLayer()
 {
     _heroes=NULL;
-    _heroeTest=NULL;
+    _actionSprite=NULL;
+    _targetSprite=NULL;
 }
+static float pastTime = 0;
+static int pastFrameNum = 0;
 void GameLayer:: update(float dt)
 {
-    if (_heroeTest) {
-        _heroeTest->walkWithDirection(true);
-    }
-    
 
+   
+    if (pastFrameNum==30) {
+///////////////test////////////////////////////////////////////
+//       CCLog("+++++++++%i",_heroes->count());
+//        CCLog("+++++++++%@",_actionSprite);
+//      CCLog("retainCount%i",_actionSprite->retainCount());
+//////////////////////////////////////////////////////////////
+        this->test();
+    }
+
+    pastTime += dt;
+    pastFrameNum += 1;
+}
+void GameLayer:: test()
+{
+    static int actionHeroNum=0;
+    CCLog("startAnimation =%f",pastTime);
+    CCLog("startAnimation =%i",pastFrameNum);
+    _actionSprite = (ActionSprite*)_heroes->objectAtIndex(actionHeroNum);
+    _targetSprite  =this->findTarget(_actionSprite);
+    /////////////////////???????????????????//////////////
+    CCLog("%i",_targetSprite->retainCount());
+    /////////////////////???????????????????//////////////
+    CCFiniteTimeAction * movement = _actionSprite ->goToTarget(_targetSprite);
+    actionHeroNum=(1+actionHeroNum)%(_heroes->count());
+    CCFiniteTimeAction * finalAction = CCSequence::create(movement,CCDelayTime::actionWithDuration(1.0f),CCCallFunc::create(this, callfunc_selector(GameLayer::test)),NULL);
+    _actionSprite->runAction(finalAction);
+
+
+}
+
+void GameLayer::attack()
+{
+    
+    CCLog("%i",_targetSprite->getHp());
+    //目标被攻击后hp减少,减少量为攻击者的伤害
+    CCLog("1111=%i",_army->count());
+    _targetSprite->setHp(_targetSprite->getHp()-_actionSprite->getDamage());
+    CCLog("%i",_targetSprite->getHp());
+    if (_targetSprite->getHp()<=0) {
+        _targetSprite->setOpacity(0);
+         CCLog("3333333333%i",_army->count());
+        if (_army->containsObject(_targetSprite)) {
+             CCLog("444444444++++++++%i",_army->count());
+            _army->removeObject(_targetSprite);
+            _heroes->removeObject(_targetSprite);
+            CCLog("444444444444%i",_army->count());
+        }
+        else{
+             CCLog("444444444++++++++%i",_army->count());
+            _enemy->removeObject(_targetSprite);
+            _heroes->removeObject(_targetSprite);
+           
+        }
+    }
+    //十字攻击特效//////////
+    ActionSprite * att = ActionSprite::create();
+    _targetSprite->addChild(att,2);
+    att->runAction(att->getAttackAction());
+    
+    att->setPosition(ccp(_targetSprite->boundingBox().size.width,_targetSprite->boundingBox().size.width));
+    att->setScale(0.4);
+    ////////////////
+    
+    
+    //    this->unschedule(schedule_selector( attack(target) ));
+}
+void GameLayer::log()
+{
+    CCLog("000000");
 }

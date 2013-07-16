@@ -52,7 +52,7 @@ public:
     //放置精灵进入战场
     void  putSpriteIntoBattleField(CCPoint position);
     //放置精灵行动
-    void goToTarget(ActionSprite * target);
+    CCFiniteTimeAction* goToTarget(ActionSprite * target);
 
 };
 #endif /* defined(__GroupWork_MSG__ActionSprite__) */
