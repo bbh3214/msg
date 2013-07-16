@@ -30,6 +30,7 @@ public:
     CC_SYNTHESIZE_RETAIN(ActionSprite * , _targetSprite, TargetSprite);
     ActionSprite* findTarget(ActionSprite* attacker);
     int getDistence(ActionSprite* self,ActionSprite* target);
+    CCFiniteTimeAction* goToTarget();
     void attack();
     void log();
     void test();
