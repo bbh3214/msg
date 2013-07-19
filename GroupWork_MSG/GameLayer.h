@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 #include "ActionSprite.h"
 #include "Hero.h"
+#include "shizi.h"
 using namespace cocos2d;
 class GameLayer:public CCLayer
 {
@@ -28,13 +29,15 @@ public:
     CC_SYNTHESIZE_RETAIN(CCArray * , _enemy, Enemy);
     CC_SYNTHESIZE_RETAIN(ActionSprite * , _actionSprite, ActionSprite);
     CC_SYNTHESIZE_RETAIN(ActionSprite * , _targetSprite, TargetSprite);
+    CC_SYNTHESIZE_RETAIN(CCControlSlider * , _hpBar, HpBar);
     ActionSprite* findTarget(ActionSprite* attacker);
     int getDistence(ActionSprite* self,ActionSprite* target);
     CCFiniteTimeAction* goToTarget();
+    void isactnot();
     void attack();
     void log();
     void test();
-
+    void valueChanged();
 };
 
 #endif /* defined(__GroupWork_MSG__GameLayer__) */

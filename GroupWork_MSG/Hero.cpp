@@ -22,6 +22,7 @@ bool Hero:: init()
     } while (0);
     return Rbet;
 }
+/*
 void Hero::goToTarget(ActionSprite * target)
 {
     this->runAction(this->getWalkAction());
@@ -57,3 +58,4 @@ void Hero::goToTarget(ActionSprite * target)
         
        
 }
+*/

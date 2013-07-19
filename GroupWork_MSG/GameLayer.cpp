@@ -8,6 +8,7 @@
 
 #include "GameLayer.h"
 
+static int actionHeroNum=0;
 bool GameLayer:: init()
 {
 
@@ -29,15 +30,14 @@ bool GameLayer:: init()
     _enemy= CCArray::createWithCapacity(10);
     _army= CCArray::createWithCapacity(10);
     //导入plist,pvr.ccz文件入缓存
-    CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("MSG.plist");
-    
-    _actors = CCSpriteBatchNode::create("MSG.pvr.ccz");
+    CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("sanguo.plist");
+    _actors = CCSpriteBatchNode::create("sanguo.pvr.ccz");
     _actors->getTexture()->setAliasTexParameters();
     this->addChild(_actors,-5);
     
     
     //加入精灵测试走动//////////////
-    for (int i=0; i<1; i++) {
+    for (int i=0; i<4; i++) {
         
         ActionSprite * temp = ActionSprite::create();
         _actors->addChild(temp,5-i);
@@ -48,8 +48,8 @@ bool GameLayer:: init()
     }
     for (int i=0; i<5; i++) {
         int random= arc4random()%5;
-        
-        CCLog("________%i",random);
+      
+//        CCLog("________%i",random);
         ActionSprite * temp = ActionSprite::create();
         _actors->addChild(temp,5-i);
         temp->putSpriteIntoBattleField(ccp(GRID_EDGE+GRID_WIDTH*(random%3+3),GRID_BOTTOM+GRID_WIDTH*(random%2+3)));
@@ -71,67 +71,26 @@ bool GameLayer:: init()
 //   
 //    testMoveS ->goToTarget(testTarget);
     ////////////////////////////
-
+    _actionSprite = (ActionSprite*)_heroes->objectAtIndex(actionHeroNum);
+    
+   
+    
+    
+    _actionSprite->setActionDone(true);
+    _targetSprite  =this->findTarget(_actionSprite);
+    _hpBar= CCControlSlider::create("hpbar2.png", "hpbar1.png", "empty.png");
+    _hpBar->setPosition(ccp(200, 200));
+    _hpBar->setScale(0.3);
+    _hpBar->setMaximumValue(1.0);
+    _hpBar->setMinimumValue(0);
+    _hpBar->setValue(0.1f);
+    _hpBar->addTargetWithActionForControlEvents(this, cccontrol_selector(GameLayer::valueChanged), CCControlEventValueChanged);
+    this->addChild(_hpBar);
        return bRet;
 }
-//确定精灵最近的对象
-ActionSprite* GameLayer::findTarget(ActionSprite* attacker)
+void GameLayer::valueChanged()
 {
-    
-    ActionSprite * target=ActionSprite::create();
-    CCLog("x=%f  y=%f",target->getPosition().x,target->getPosition().y);
-    //攻击者为army
-    int min=99;
-    if (_army->containsObject(attacker)) {
-        
-        CCObject* obj=NULL;
-        
-        CCARRAY_FOREACH(_enemy, obj)
-        {
-            ActionSprite * temp=(ActionSprite*)obj;
-            
-            int distance= this->getDistence(attacker, temp);
-            if (distance<=min) {
-                min=distance;
-                target=temp;
-            }
-        }
-    }
-    //攻击者为enemy
-    else
-    {
-        CCObject* obj=NULL;
-        CCARRAY_FOREACH(_army, obj)
-        {
-            ActionSprite * temp=(ActionSprite*)obj;
-            
-            int distance= this->getDistence(attacker, temp);
-            if (distance<=min) {
-                min=distance;
-                target=temp;
-            }
-        }
-
-    
-    
-    }
-    CCLog("min ==== %i",min);
-    return target;
-
-    
-}
-//确定精灵之间的距离
-int GameLayer::getDistence(ActionSprite* self,ActionSprite* target)
-{
-    CCPoint target_point =  target->getPosition();
-    CCPoint self_point = self->getPosition();
-    //计算出与目标精灵x,y轴上距离几格
-    int distance_x =  ccpSub(target_point, self_point).x/GRID_WIDTH;
-    int distance_y =  ccpSub(target_point, self_point).y/GRID_WIDTH;
-    //离目标的实际距离(单位:格子数)
-    int total_distance = abs(distance_x) +abs(distance_y) ;
-    CCLog("total_distance ==== %i",total_distance);
-    return total_distance;
+    CCLog("hpBar==%f",_hpBar->getValue());
 
 }
 GameLayer:: GameLayer()
@@ -145,14 +104,24 @@ static int pastFrameNum = 0;
 void GameLayer:: update(float dt)
 {
 
+    
    
-    if (pastFrameNum==30) {
+    if (pastFrameNum>30) {
 ///////////////test////////////////////////////////////////////
 //       CCLog("+++++++++%i",_heroes->count());
 //        CCLog("+++++++++%@",_actionSprite);
 //      CCLog("retainCount%i",_actionSprite->retainCount());
 //////////////////////////////////////////////////////////////
+        
         this->test();
+        _hpBar= CCControlSlider::create("hpbar2.png", "hpbar1.png", "empty.png");
+        _hpBar->setPosition(ccp(22, 22));
+        _hpBar->setScale(0.99);
+        _hpBar->setMaximumValue(1.0);
+        _hpBar->setMinimumValue(0);
+        _hpBar->setValue(0.5f);
+        _hpBar->retain();
+        _actionSprite->addChild(_hpBar,199);
     }
 
     pastTime += dt;
@@ -160,26 +129,49 @@ void GameLayer:: update(float dt)
 }
 void GameLayer:: test()
 {
-    static int actionHeroNum=0;
-    CCLog("startAnimation =%f",pastTime);
-    CCLog("startAnimation =%i",pastFrameNum);
-    _actionSprite = (ActionSprite*)_heroes->objectAtIndex(actionHeroNum);
-    _targetSprite  =this->findTarget(_actionSprite);
-    /////////////////////???????????????????//////////////
-    CCLog("%i",_targetSprite->retainCount());
-    /////////////////////???????????????????//////////////
-    CCFiniteTimeAction * movement = this ->goToTarget();
-    actionHeroNum=(1+actionHeroNum)%(_heroes->count());
-    CCFiniteTimeAction * finalAction = CCSequence::create(movement,CCDelayTime::actionWithDuration(1.0f),CCCallFunc::create(this, callfunc_selector(GameLayer::test)),NULL);
-    _actionSprite->runAction(finalAction);
+    
+    
+    if (_actionSprite->getActionDone()) {
+  
+        //如果处于准备好状态，那么可以行动
+        if (_actionSprite->getActionReady()) {
+            //如果处于行动状态，那么进入未准备状态
+            _actionSprite->setActionReady(false);
+            
+            CCLog("startAnimation =%f",pastTime);
+            CCLog("startAnimation =%i",pastFrameNum);
+            
+            /////////////////////???????????????????//////////////
+            CCLog("_targetSprite->retainCount =%i",_targetSprite->retainCount());
+            /////////////////////???????????????????//////////////
+            CCFiniteTimeAction * movement = this ->goToTarget();
+            
+            CCFiniteTimeAction * finalAction = CCSequence::create(movement,CCDelayTime::create(1.0f),CCCallFunc::create(this, callfunc_selector(GameLayer::log)),NULL);
+            _actionSprite->runAction(finalAction);
+            
+        }
 
+    }
 
 }
+void GameLayer::log()
+{
+    
+
+    _actionSprite->setActionDone(false);
+    actionHeroNum=(1+actionHeroNum)%(_heroes->count());
+    _actionSprite = (ActionSprite*)_heroes->objectAtIndex(actionHeroNum);
+    _targetSprite  =this->findTarget(_actionSprite);
+    _actionSprite->retain();
+    _targetSprite->retain();
+    _actionSprite->setActionDone(true);
+    _actionSprite->setActionReady(true);
+}
+
 //精灵行动动作
 CCFiniteTimeAction* GameLayer:: goToTarget()
 {
-    //为什么报错
-    //    this->runAction(_walkAction);
+
     CCFiniteTimeAction * movement ;
     CCPoint target_point =  _targetSprite->getPosition();
     CCPoint self_point = _actionSprite->getPosition();
@@ -199,7 +191,7 @@ CCFiniteTimeAction* GameLayer:: goToTarget()
         //如果在攻击范围内,直接攻击
         if (_actionSprite->getRange()>total_distance) {
             
-            this->attack();
+//            this->attack();
         }
         //否则移动后攻击
         else{
@@ -273,12 +265,12 @@ CCFiniteTimeAction* GameLayer:: goToTarget()
     return movement;
     
 }
-
+//actionSprite 攻击_targetSprite
+bool isact =false;
 void GameLayer::attack()
 {
     ////////////////test////////////////
     CCLog("%i",_targetSprite->getHp());
-    CCLog("1111=%i",_army->count());
     ////////////////test////////////////
     //目标被攻击后hp减少,减少量为攻击者的伤害
     _targetSprite->setHp(_targetSprite->getHp()-_actionSprite->getDamage());
@@ -298,20 +290,107 @@ void GameLayer::attack()
             _heroes->removeObject(_targetSprite);
            
         }
+        if (_army->count()==0) {
+            CCLog("enemy win");
+            this->unscheduleUpdate();
+        }
+        if (_enemy->count()==0) {
+            CCLog("army win");
+            this->unscheduleUpdate();
+        }
     }
-    //十字攻击特效//////////
-    ActionSprite * att = ActionSprite::create();
-    _targetSprite->addChild(att,2);
-    att->runAction(att->getAttackAction());
+
+
+    if (_army->containsObject(_actionSprite))
+    {_targetSprite->setAnchorPoint(ccp(0.5, 0.5));
+        _actionSprite->runAction(_actionSprite->getAttackAction());
+        //十字攻击特效//////////
+        Shizi * att = Shizi::create();
+        _targetSprite->addChild(att,1);
+//        att->setPosition(ccp(_targetSprite->boundingBox().size.width/2,_targetSprite->boundingBox().size.width/2));
+
+        att->runAction(att->getAtAnimation());
+
+//        CCLog("_targetSprite->boundingBox().size.width/2=%f _targetSprite->boundingBox().size.width/2=%f\n",_targetSprite->boundingBox().size.width/2,_targetSprite->boundingBox().size.width/2);
+//        CCLog("_targetSprite->getPosition().x=%f _targetSprite->getPosition().y=%f\n",_targetSprite->getPosition().x,_targetSprite->getPosition().y);
+//        CCLog("att->getPosition().x=%f att->getPosition().y=%f\n",att->getPosition().x,att->getPosition().y);
+
+    }
+    else
+    {
+        _actionSprite->runAction(_actionSprite->getNegativeAttackAction());
+        Shizi * att = Shizi::create();
+        _targetSprite->addChild(att,99);
+        att->runAction(att->getAtAnimation());
+
+   
+    }
     
-    att->setPosition(ccp(_targetSprite->boundingBox().size.width/2,_targetSprite->boundingBox().size.width/2));
-    att->setScale(0.4);
-    ////////////////
-    
-    
-    //    this->unschedule(schedule_selector( attack(target) ));
+  
 }
-void GameLayer::log()
+void deletAttackAnimation()
 {
-    CCLog("000000");
+    
+
+}
+void GameLayer::isactnot()
+{
+    isact=false;
+}
+//确定精灵最近的对象
+ActionSprite* GameLayer::findTarget(ActionSprite* attacker)
+{
+    
+    ActionSprite * target=ActionSprite::create();
+    //攻击者为army
+    int min=99;
+    if (_army->containsObject(attacker)) {
+        
+        CCObject* obj=NULL;
+        
+        CCARRAY_FOREACH(_enemy, obj)
+        {
+            ActionSprite * temp=(ActionSprite*)obj;
+            
+            int distance= this->getDistence(attacker, temp);
+            if (distance<=min) {
+                min=distance;
+                target=temp;
+            }
+        }
+    }
+    //攻击者为enemy
+    else
+    {
+        CCObject* obj=NULL;
+        CCARRAY_FOREACH(_army, obj)
+        {
+            ActionSprite * temp=(ActionSprite*)obj;
+            
+            int distance= this->getDistence(attacker, temp);
+            if (distance<=min) {
+                min=distance;
+                target=temp;
+            }
+        }
+}
+//    CCLog("min ==== %i",min);
+//    CCLog("x=%f  y=%f",target->getPosition().x,target->getPosition().y);
+    return target;
+    
+    
+}
+//确定精灵之间的距离
+int GameLayer::getDistence(ActionSprite* self,ActionSprite* target)
+{
+    CCPoint target_point =  target->getPosition();
+    CCPoint self_point = self->getPosition();
+    //计算出与目标精灵x,y轴上距离几格
+    int distance_x =  ccpSub(target_point, self_point).x/GRID_WIDTH;
+    int distance_y =  ccpSub(target_point, self_point).y/GRID_WIDTH;
+    //离目标的实际距离(单位:格子数)
+    int total_distance = abs(distance_x) +abs(distance_y) ;
+    CCLog("total_distance ==== %i",total_distance);
+    return total_distance;
+    
 }

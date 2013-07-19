@@ -204,6 +204,13 @@
 		A12C9887178FF66500629298 /* MSG.plist in Resources */ = {isa = PBXBuildFile; fileRef = A12C9885178FF66500629298 /* MSG.plist */; };
 		A12C9888178FF66500629298 /* MSG.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = A12C9886178FF66500629298 /* MSG.pvr.ccz */; };
 		A12C988C17902EA800629298 /* Hero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A12C988A17902EA800629298 /* Hero.cpp */; };
+		AD334DDB1799116900FFB7CE /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = AD334DDA1799116900FFB7CE /* empty.png */; };
+		AD334DE21799163500FFB7CE /* hpbar1.png in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE01799163500FFB7CE /* hpbar1.png */; };
+		AD334DE31799163500FFB7CE /* hpbar2.png in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE11799163500FFB7CE /* hpbar2.png */; };
+		AD334DE717991B4400FFB7CE /* sanguo.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE417991B4400FFB7CE /* sanguo.plist */; };
+		AD334DE817991B4400FFB7CE /* sanguo.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE517991B4400FFB7CE /* sanguo.pvr.ccz */; };
+		AD334DE917991B4400FFB7CE /* sanguo.tps in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE617991B4400FFB7CE /* sanguo.tps */; };
+		AD6509841797B7B40066DAA4 /* shizi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD6509821797B7B40066DAA4 /* shizi.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -650,6 +657,14 @@
 		A12C9886178FF66500629298 /* MSG.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = MSG.pvr.ccz; sourceTree = "<group>"; };
 		A12C988A17902EA800629298 /* Hero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hero.cpp; sourceTree = "<group>"; };
 		A12C988B17902EA800629298 /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
+		AD334DDA1799116900FFB7CE /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
+		AD334DE01799163500FFB7CE /* hpbar1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hpbar1.png; sourceTree = "<group>"; };
+		AD334DE11799163500FFB7CE /* hpbar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hpbar2.png; sourceTree = "<group>"; };
+		AD334DE417991B4400FFB7CE /* sanguo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sanguo.plist; sourceTree = "<group>"; };
+		AD334DE517991B4400FFB7CE /* sanguo.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = sanguo.pvr.ccz; sourceTree = "<group>"; };
+		AD334DE617991B4400FFB7CE /* sanguo.tps */ = {isa = PBXFileReference; lastKnownFileType = file; path = sanguo.tps; sourceTree = "<group>"; };
+		AD6509821797B7B40066DAA4 /* shizi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shizi.cpp; sourceTree = "<group>"; };
+		AD6509831797B7B40066DAA4 /* shizi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shizi.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -724,6 +739,12 @@
 				A12C95A5178D574200629298 /* Info.plist */,
 				A12C9885178FF66500629298 /* MSG.plist */,
 				A12C9886178FF66500629298 /* MSG.pvr.ccz */,
+				AD334DE417991B4400FFB7CE /* sanguo.plist */,
+				AD334DE517991B4400FFB7CE /* sanguo.pvr.ccz */,
+				AD334DE617991B4400FFB7CE /* sanguo.tps */,
+				AD334DE01799163500FFB7CE /* hpbar1.png */,
+				AD334DE11799163500FFB7CE /* hpbar2.png */,
+				AD334DDA1799116900FFB7CE /* empty.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1587,10 +1608,20 @@
 			children = (
 				A12C9867178D792D00629298 /* ActionSprite.h */,
 				A12C9866178D792D00629298 /* ActionSprite.cpp */,
+				AD6509811797B5620066DAA4 /* AttackAnimation */,
 				A12C988A17902EA800629298 /* Hero.cpp */,
 				A12C988B17902EA800629298 /* Hero.h */,
 			);
 			name = Sprite;
+			sourceTree = "<group>";
+		};
+		AD6509811797B5620066DAA4 /* AttackAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				AD6509821797B7B40066DAA4 /* shizi.cpp */,
+				AD6509831797B7B40066DAA4 /* shizi.h */,
+			);
+			name = AttackAnimation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1647,6 +1678,12 @@
 				A12C9636178D574300629298 /* ChangeLog in Resources */,
 				A12C9887178FF66500629298 /* MSG.plist in Resources */,
 				A12C9888178FF66500629298 /* MSG.pvr.ccz in Resources */,
+				AD334DDB1799116900FFB7CE /* empty.png in Resources */,
+				AD334DE21799163500FFB7CE /* hpbar1.png in Resources */,
+				AD334DE31799163500FFB7CE /* hpbar2.png in Resources */,
+				AD334DE717991B4400FFB7CE /* sanguo.plist in Resources */,
+				AD334DE817991B4400FFB7CE /* sanguo.pvr.ccz in Resources */,
+				AD334DE917991B4400FFB7CE /* sanguo.tps in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1841,6 +1878,7 @@
 				A12C986F178EC9E100629298 /* GameLayer.cpp in Sources */,
 				A12C9877178FA60000629298 /* Actions.cpp in Sources */,
 				A12C988C17902EA800629298 /* Hero.cpp in Sources */,
+				AD6509841797B7B40066DAA4 /* shizi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,9 +22,9 @@ public:
     CREATE_FUNC(Actions);
     bool init();
     
-    CC_SYNTHESIZE(CCAction*, _act, Act);
-    CCAction* creatWalkAction(const char * picName,int startNum,int endNum);
-    CCAction* creatAttackAction(const char * picName,int startNum,int endNum);
+    CC_SYNTHESIZE(CCActionInterval*, _act, Act);
+    CCActionInterval * creatWalkAction(const char * picName,int startNum,int endNum);
+    CCActionInterval * creatAttackAction(const char * picName,int startNum,int endNum);
     CCAnimation *  creatAnimationForAction(const char * picName,int startNum,int endNum,float timePerFrame);
 };
 #endif /* defined(__GroupWork_MSG__Actions__) */

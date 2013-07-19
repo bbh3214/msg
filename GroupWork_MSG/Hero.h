@@ -17,7 +17,7 @@ class Hero: public ActionSprite {
     
 public:
     CREATE_FUNC(Hero);
-    void goToTarget(ActionSprite * target);
+//    void goToTarget(ActionSprite * target);
     bool init();
     
     

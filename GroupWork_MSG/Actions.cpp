@@ -17,7 +17,7 @@ bool Actions::  init()
     do {
         
         CC_BREAK_IF(!CCAction::create());
-        _act = CCAction::create();
+        _act = NULL;
         
         
         
@@ -53,11 +53,11 @@ CCAnimation * Actions:: creatAnimationForAction(const char * picName,int startNu
 }
 
 //设置行走动作        
-CCAction* Actions:: creatWalkAction(const char * picName,int startNum,int endNum)
+CCActionInterval * Actions:: creatWalkAction(const char * picName,int startNum,int endNum)
 {
 
 
-    CCAnimation * animation = this->creatAnimationForAction(picName, startNum, endNum,0.2);
+    CCAnimation * animation = this->creatAnimationForAction(picName, startNum, endNum,0.3);
     //根据动画创建不断循环执行的动作
     _act = CCRepeatForever::create(CCAnimate::create(animation));
     return _act;
@@ -66,11 +66,11 @@ CCAction* Actions:: creatWalkAction(const char * picName,int startNum,int endNum
 
 
 //设置攻击动作
-CCAction* Actions:: creatAttackAction(const char * picName,int startNum,int endNum)
+CCActionInterval * Actions:: creatAttackAction(const char * picName,int startNum,int endNum)
 {
     
 
-    CCAnimation * animation = this->creatAnimationForAction(picName, startNum, endNum,0.05);
+    CCAnimation * animation = this->creatAnimationForAction(picName, startNum, endNum,0.1);
     //根据动画创建不断循环执行的动作
     _act =  CCAnimate::create(animation);
     return _act;

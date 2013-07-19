@@ -15,15 +15,23 @@ ActionSprite:: ActionSprite()
     _directionToRight = true;
     _idleAction=NULL;
     _walkAction = NULL;
+    _negativeWalkAction=NULL;
+    _negativeattackAction=NULL;
     _attackAction = NULL;
     _hurtAction = NULL;
     _knockedOutAction = NULL;
+    _actionDone = false;
+    _actionReady=true;
 
 }
 ActionSprite::~ActionSprite()
 {
     
-   
+    _factory->release();
+    _attackAction->release();
+    _negativeattackAction->release();
+    _walkAction->release();
+    _negativeWalkAction->release();
 
 
 }
@@ -32,17 +40,38 @@ bool ActionSprite:: init()
 
     bool bRet = false;
     do {
-        CC_BREAK_IF(!CCSprite::initWithSpriteFrameName("golden_02.png"));
+//        CC_BREAK_IF(!CCSprite::initWithSpriteFrameName("zy_05.png"));
+         CC_BREAK_IF(!CCSprite::initWithSpriteFrameName("zy_05.png"));
        //设定缩放以求适应网格
+
         this->setScale(SPRITE_SCALE);
-        this->setRange(1);
-        this->setMovement(6);
+        this->setRange(3);
+        this->setMovement(5);
         this->setHp(10);
-        this->setDamage(2);
+        this->setDamage(3);
         _factory= Actions::create();
-        _negativeWalkAction = _factory->creatWalkAction("golden_" , 9,12);
-        _walkAction = _factory->creatWalkAction("golden_" , 5,8);
-        _attackAction = _factory->creatAttackAction("x_attack_",1,20);
+        _factory->retain();
+        _negativeWalkAction = _factory->creatWalkAction("zy_" , 9,12);
+        _negativeWalkAction-> retain();
+        _walkAction = _factory->creatWalkAction("zy_" , 5,8);
+        _walkAction->retain();
+        _attackAction = _factory->creatAttackAction("zy_melee_",9,12);
+        _attackAction->retain();
+        _negativeattackAction =_factory->creatAttackAction("zy_melee_", 5, 8);
+        _negativeattackAction->retain();
+       
+        
+        this->setAnchorPoint(ccp(0.5, 0.5));
+        
+        
+        _hpBar= CCControlSlider::create("hpbar2.png", "hpbar1.png", "empty.png");
+        _hpBar->setPosition(ccp(22, 22));
+        _hpBar->setScale(0.99);
+        _hpBar->setMaximumValue(1.0);
+        _hpBar->setMinimumValue(0);
+        _hpBar->setValue(0.5f);
+        _hpBar->retain();
+        this->addChild(_hpBar,199);
         bRet=true;
     } while (0);
     
@@ -55,6 +84,7 @@ void ActionSprite::walkWithDirection(bool directionToRight)
     
     if (directionToRight) {
         this->runAction(_walkAction);
+        CCLog("this->retainCount()%i",this->retainCount());
     }
     else{
         this->runAction(_negativeWalkAction);
@@ -70,9 +100,9 @@ void ActionSprite:: putSpriteIntoBattleField(CCPoint position)
     int x_row_mun = (position.x - GRID_EDGE)/GRID_WIDTH;
     int y_row_mun = (position.y - GRID_BOTTOM)/GRID_WIDTH;
     //根据行号,列号放置精灵
-    this->setPosition(ccp(GRID_EDGE+GRID_WIDTH*x_row_mun+spriteHalfWidth, GRID_BOTTOM+GRID_WIDTH*y_row_mun+spriteHalfHeight));
+    this->setPosition(ccp(GRID_EDGE+GRID_WIDTH*(x_row_mun+0.5), GRID_BOTTOM+GRID_WIDTH*(y_row_mun+0.5)));
 }
-
+/*
 //精灵行动动作
 CCFiniteTimeAction* ActionSprite::goToTarget(ActionSprite * target)
 {
@@ -198,6 +228,7 @@ void ActionSprite::attack(ActionSprite * target)
     CCLog("%i",target->getHp());
 //    this->unschedule(schedule_selector( attack(target) ));
 }
+ */
 void ActionSprite::hurtWithDamage(float damage)
 {
 
@@ -207,40 +238,3 @@ void ActionSprite::knockout()
 
 }
 
-
-
-
-//更新
-//void ActionSprite:: updata()
-//{
-//    switch (_actionState) {
-//        case 0:
-//            CCLog("11");
-//            break;
-//        case 1:
-//            this->idle();
-//            break;
-//        case 2:
-//            this->attack();
-//            break;
-//        case kActionStateWalk:
-//
-////            this->stopAllActions();
-////            this->runAction(_walkAction);
-////            _actionState = kActionStateWalk;
-//            break;
-//        case 4:
-////            this->hurtWithDamage(0);
-//            break;
-//        case 5:
-//            this->knockout();
-//            break;
-//        case kActionStateEdit:
-////?
-//            break;
-//
-//        default:
-//            break;
-//    }
-//
-//}

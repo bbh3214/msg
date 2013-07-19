@@ -26,7 +26,6 @@ bool BattleScene:: init()
     do {
         CC_BREAK_IF(!CCScene::init());
         _battleGrid = GridLayer::create();
-        
         this->addChild(_battleGrid,-6);
         _gameLayer = GameLayer::create();
         this->addChild(_gameLayer,-5);

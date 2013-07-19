@@ -13,6 +13,8 @@
  #include "cocos2d.h"
 #include "Define.h"
 #include "Actions.h"
+#include "cocos-ext.h"
+USING_NS_CC_EXT;
 using namespace cocos2d;
 class ActionSprite: public CCSprite {
 
@@ -26,22 +28,27 @@ public:
     //动作
     
     CC_SYNTHESIZE_RETAIN(CCAction *, _idleAction, IdleAction);
-    CC_SYNTHESIZE_RETAIN(CCAction *, _attackAction, AttackAction);
-    CC_SYNTHESIZE_RETAIN(CCAction *, _walkAction, WalkAction);
-    CC_SYNTHESIZE_RETAIN(CCAction *, _negativeWalkAction, NegativeWalkAction);
-    CC_SYNTHESIZE_RETAIN(CCAction *, _hurtAction, HurtAction);
-    CC_SYNTHESIZE_RETAIN(CCAction *, _knockedOutAction, KnockedOutAction);
+    CC_SYNTHESIZE_RETAIN(CCActionInterval *, _attackAction, AttackAction);
+    CC_SYNTHESIZE_RETAIN(CCActionInterval *, _negativeattackAction, NegativeAttackAction);
+    CC_SYNTHESIZE_RETAIN(CCActionInterval *, _walkAction, WalkAction);
+    CC_SYNTHESIZE_RETAIN(CCActionInterval *, _negativeWalkAction, NegativeWalkAction);
+    CC_SYNTHESIZE_RETAIN(CCActionInterval *, _hurtAction, HurtAction);
+    CC_SYNTHESIZE_RETAIN(CCActionInterval *, _knockedOutAction, KnockedOutAction);
+    //血条
+    CC_SYNTHESIZE_RETAIN(CCControlSlider *, _hpBar, HpBar);
     //属性
     CC_SYNTHESIZE(int, _hp, Hp);
     CC_SYNTHESIZE(int, _damage, Damage);
     CC_SYNTHESIZE(int, _movement, Movement);
     CC_SYNTHESIZE(int, _range, Range);
+    CC_SYNTHESIZE(bool, _actionDone, ActionDone);
+    CC_SYNTHESIZE(bool, _actionReady, ActionReady);
     //更新函数
     void updata();
     //动作状态
     void idle();
     
-    void attack(ActionSprite * target);
+//    void attack(ActionSprite * target);
     void hurtWithDamage(float damage);
     void knockout();
     void walkWithDirection(bool directionToRight);
@@ -52,7 +59,7 @@ public:
     //放置精灵进入战场
     void  putSpriteIntoBattleField(CCPoint position);
     //放置精灵行动
-    CCFiniteTimeAction* goToTarget(ActionSprite * target);
+//    CCFiniteTimeAction* goToTarget(ActionSprite * target);
 
 };
 #endif /* defined(__GroupWork_MSG__ActionSprite__) */
