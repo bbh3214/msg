@@ -38,6 +38,7 @@ public:
     CC_SYNTHESIZE_RETAIN(CCControlSlider *, _hpBar, HpBar);
     //属性
     CC_SYNTHESIZE(int, _hp, Hp);
+    CC_SYNTHESIZE(int, _fullHp, FullHp);
     CC_SYNTHESIZE(int, _damage, Damage);
     CC_SYNTHESIZE(int, _movement, Movement);
     CC_SYNTHESIZE(int, _range, Range);

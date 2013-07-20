@@ -210,6 +210,7 @@
 		AD334DE717991B4400FFB7CE /* sanguo.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE417991B4400FFB7CE /* sanguo.plist */; };
 		AD334DE817991B4400FFB7CE /* sanguo.pvr.ccz in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE517991B4400FFB7CE /* sanguo.pvr.ccz */; };
 		AD334DE917991B4400FFB7CE /* sanguo.tps in Resources */ = {isa = PBXBuildFile; fileRef = AD334DE617991B4400FFB7CE /* sanguo.tps */; };
+		AD334DEB179A4FEC00FFB7CE /* yuxu.png in Resources */ = {isa = PBXBuildFile; fileRef = AD334DEA179A4FEC00FFB7CE /* yuxu.png */; };
 		AD6509841797B7B40066DAA4 /* shizi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD6509821797B7B40066DAA4 /* shizi.cpp */; };
 /* End PBXBuildFile section */
 
@@ -663,6 +664,7 @@
 		AD334DE417991B4400FFB7CE /* sanguo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sanguo.plist; sourceTree = "<group>"; };
 		AD334DE517991B4400FFB7CE /* sanguo.pvr.ccz */ = {isa = PBXFileReference; lastKnownFileType = file; path = sanguo.pvr.ccz; sourceTree = "<group>"; };
 		AD334DE617991B4400FFB7CE /* sanguo.tps */ = {isa = PBXFileReference; lastKnownFileType = file; path = sanguo.tps; sourceTree = "<group>"; };
+		AD334DEA179A4FEC00FFB7CE /* yuxu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yuxu.png; sourceTree = "<group>"; };
 		AD6509821797B7B40066DAA4 /* shizi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shizi.cpp; sourceTree = "<group>"; };
 		AD6509831797B7B40066DAA4 /* shizi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shizi.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -742,6 +744,7 @@
 				AD334DE417991B4400FFB7CE /* sanguo.plist */,
 				AD334DE517991B4400FFB7CE /* sanguo.pvr.ccz */,
 				AD334DE617991B4400FFB7CE /* sanguo.tps */,
+				AD334DEA179A4FEC00FFB7CE /* yuxu.png */,
 				AD334DE01799163500FFB7CE /* hpbar1.png */,
 				AD334DE11799163500FFB7CE /* hpbar2.png */,
 				AD334DDA1799116900FFB7CE /* empty.png */,
@@ -1684,6 +1687,7 @@
 				AD334DE717991B4400FFB7CE /* sanguo.plist in Resources */,
 				AD334DE817991B4400FFB7CE /* sanguo.pvr.ccz in Resources */,
 				AD334DE917991B4400FFB7CE /* sanguo.tps in Resources */,
+				AD334DEB179A4FEC00FFB7CE /* yuxu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,8 +19,8 @@ class GameLayer:public CCLayer
 {
 public:
     CREATE_FUNC(GameLayer);
-    CCSpriteBatchNode * _actors;
-    CCSpriteBatchNode * _showAttacks;
+//    CCSpriteBatchNode * _actors;
+//    CCSpriteBatchNode * _showAttacks;
     bool init();
     void update(float dt);
     GameLayer();
@@ -29,10 +29,11 @@ public:
     CC_SYNTHESIZE_RETAIN(CCArray * , _enemy, Enemy);
     CC_SYNTHESIZE_RETAIN(ActionSprite * , _actionSprite, ActionSprite);
     CC_SYNTHESIZE_RETAIN(ActionSprite * , _targetSprite, TargetSprite);
-    CC_SYNTHESIZE_RETAIN(CCControlSlider * , _hpBar, HpBar);
+    CC_SYNTHESIZE_RETAIN(CCSprite * , _backGround, BackGround);
     ActionSprite* findTarget(ActionSprite* attacker);
     int getDistence(ActionSprite* self,ActionSprite* target);
     CCFiniteTimeAction* goToTarget();
+    void removeDamage();
     void isactnot();
     void attack();
     void log();

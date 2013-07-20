@@ -13,7 +13,7 @@ bool Shizi:: init()
     bool Rbet = false;
     CCLog("fffff");
     do {
-        CC_BREAK_IF(!ActionSprite::init());
+        CC_BREAK_IF(!CCSprite::init());
         
         Actions * temp = Actions::create();
         _atAnimation = temp->creatAttackAction("shizi_", 1, 20);

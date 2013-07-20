@@ -48,6 +48,7 @@ bool ActionSprite:: init()
         this->setRange(3);
         this->setMovement(5);
         this->setHp(10);
+        this->setFullHp(10);
         this->setDamage(3);
         _factory= Actions::create();
         _factory->retain();
@@ -65,11 +66,11 @@ bool ActionSprite:: init()
         
         
         _hpBar= CCControlSlider::create("hpbar2.png", "hpbar1.png", "empty.png");
-        _hpBar->setPosition(ccp(22, 22));
-        _hpBar->setScale(0.99);
+        _hpBar->setPosition(ccp(23, this->boundingBox().size.height+3));
+        _hpBar->setScale(0.3);
         _hpBar->setMaximumValue(1.0);
         _hpBar->setMinimumValue(0);
-        _hpBar->setValue(0.5f);
+        _hpBar->setValue(1.0f);
         _hpBar->retain();
         this->addChild(_hpBar,199);
         bRet=true;

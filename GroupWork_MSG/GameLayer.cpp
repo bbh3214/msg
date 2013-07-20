@@ -24,23 +24,30 @@ bool GameLayer:: init()
         bRet=true;
     } while (0);
     this->scheduleUpdate();
-
-    _heroes = CCArray::createWithCapacity(10);
     
+    _heroes = CCArray::createWithCapacity(10);
     _enemy= CCArray::createWithCapacity(10);
     _army= CCArray::createWithCapacity(10);
+   
+    //背景图
+    _backGround = CCSprite::create("yuxu.png");
+    _backGround->setScale(0.5);
+    _backGround->setAnchorPoint(CCPointZero);
+    _backGround->setPosition(ccp(-400, 0));
+    this->addChild(_backGround,-10);
+    
+    
+    
     //导入plist,pvr.ccz文件入缓存
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("sanguo.plist");
-    _actors = CCSpriteBatchNode::create("sanguo.pvr.ccz");
-    _actors->getTexture()->setAliasTexParameters();
-    this->addChild(_actors,-5);
+  
     
     
     //加入精灵测试走动//////////////
     for (int i=0; i<4; i++) {
         
         ActionSprite * temp = ActionSprite::create();
-        _actors->addChild(temp,5-i);
+        this->addChild(temp,5-i);
         temp->putSpriteIntoBattleField(ccp(GRID_EDGE+GRID_WIDTH*(0),GRID_BOTTOM+GRID_WIDTH*(i)));
         temp->walkWithDirection(false);
         _heroes->addObject(temp);
@@ -51,7 +58,7 @@ bool GameLayer:: init()
       
 //        CCLog("________%i",random);
         ActionSprite * temp = ActionSprite::create();
-        _actors->addChild(temp,5-i);
+        this->addChild(temp,5-i);
         temp->putSpriteIntoBattleField(ccp(GRID_EDGE+GRID_WIDTH*(random%3+3),GRID_BOTTOM+GRID_WIDTH*(random%2+3)));
         temp->walkWithDirection(true);
         _heroes->addObject(temp);
@@ -78,21 +85,9 @@ bool GameLayer:: init()
     
     _actionSprite->setActionDone(true);
     _targetSprite  =this->findTarget(_actionSprite);
-    _hpBar= CCControlSlider::create("hpbar2.png", "hpbar1.png", "empty.png");
-    _hpBar->setPosition(ccp(200, 200));
-    _hpBar->setScale(0.3);
-    _hpBar->setMaximumValue(1.0);
-    _hpBar->setMinimumValue(0);
-    _hpBar->setValue(0.1f);
-    _hpBar->addTargetWithActionForControlEvents(this, cccontrol_selector(GameLayer::valueChanged), CCControlEventValueChanged);
-    this->addChild(_hpBar);
-       return bRet;
+    return bRet;
 }
-void GameLayer::valueChanged()
-{
-    CCLog("hpBar==%f",_hpBar->getValue());
 
-}
 GameLayer:: GameLayer()
 {
     _heroes=NULL;
@@ -114,14 +109,7 @@ void GameLayer:: update(float dt)
 //////////////////////////////////////////////////////////////
         
         this->test();
-        _hpBar= CCControlSlider::create("hpbar2.png", "hpbar1.png", "empty.png");
-        _hpBar->setPosition(ccp(22, 22));
-        _hpBar->setScale(0.99);
-        _hpBar->setMaximumValue(1.0);
-        _hpBar->setMinimumValue(0);
-        _hpBar->setValue(0.5f);
-        _hpBar->retain();
-        _actionSprite->addChild(_hpBar,199);
+
     }
 
     pastTime += dt;
@@ -277,6 +265,7 @@ void GameLayer::attack()
 
     if (_targetSprite->getHp()<=0) {
         _targetSprite->setOpacity(0);
+        _targetSprite->getHpBar()->setOpacity(0);
 
         if (_army->containsObject(_targetSprite)) {
 
@@ -310,7 +299,14 @@ void GameLayer::attack()
 //        att->setPosition(ccp(_targetSprite->boundingBox().size.width/2,_targetSprite->boundingBox().size.width/2));
 
         att->runAction(att->getAtAnimation());
-
+        _targetSprite->getHpBar()->setValue((float)_targetSprite->getHp()/(float)_targetSprite->getFullHp());
+        
+        //添加伤害数字
+        CCLabelTTF *temp =	CCLabelTTF::create("-3", "Arial", 20);
+        _targetSprite->addChild(temp,999,5);
+        temp->setPosition(ccp(20,60));
+        temp->setColor(ccRED);
+        scheduleOnce(schedule_selector(GameLayer::removeDamage), 0.5);
 //        CCLog("_targetSprite->boundingBox().size.width/2=%f _targetSprite->boundingBox().size.width/2=%f\n",_targetSprite->boundingBox().size.width/2,_targetSprite->boundingBox().size.width/2);
 //        CCLog("_targetSprite->getPosition().x=%f _targetSprite->getPosition().y=%f\n",_targetSprite->getPosition().x,_targetSprite->getPosition().y);
 //        CCLog("att->getPosition().x=%f att->getPosition().y=%f\n",att->getPosition().x,att->getPosition().y);
@@ -322,11 +318,22 @@ void GameLayer::attack()
         Shizi * att = Shizi::create();
         _targetSprite->addChild(att,99);
         att->runAction(att->getAtAnimation());
-
-   
+        _targetSprite->getHpBar()->setValue((float)_targetSprite->getHp()/(float)_targetSprite->getFullHp());
+        //添加伤害数字
+        CCLabelTTF *temp =	CCLabelTTF::create("-3", "Arial", 20);
+        _targetSprite->addChild(temp,999,5);
+        temp->setPosition(ccp(20,60));
+        temp->setColor(ccRED);
+        scheduleOnce(schedule_selector(GameLayer::removeDamage), 0.5);
     }
     
   
+}
+void GameLayer::removeDamage()
+{
+//    _targetSprite->getChildByTag(5);
+    _targetSprite->removeChildByTag(5, true);
+
 }
 void deletAttackAnimation()
 {

@@ -13,7 +13,7 @@
 #include "cocos2d.h"
 #include "ActionSprite.h"
 using namespace cocos2d;
-class Shizi: public ActionSprite {
+class Shizi: public CCSprite {
     
 public:
     CREATE_FUNC(Shizi);

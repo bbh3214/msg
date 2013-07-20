@@ -28,7 +28,7 @@ bool BattleScene:: init()
         _battleGrid = GridLayer::create();
         this->addChild(_battleGrid,-6);
         _gameLayer = GameLayer::create();
-        this->addChild(_gameLayer,-5);
+        this->addChild(_gameLayer,-7);
         bRet=true;
     } while (0);
 
